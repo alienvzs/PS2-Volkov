@@ -2,11 +2,17 @@
 #include <kernel.h>
 #include <sifrpc.h>
 #include <loadfile.h>
-#include <fileXio_rpc.h>
+#include <dirent.h>      // Új szabvány a mappákhoz
+#include <unistd.h>      // Új szabvány a fájlokhoz
 #include <libpad.h>
 #include <gsKit.h>
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
+
+// A fileXio hívásokat töröld ki, helyette a sima C függvényeket használd:
+// Példa a másoláshoz: fopen(src, "rb") és fopen(dest, "wb")
+
 
 // --- DRIVER BETÖLTÉS (IRX) ---
 void load_drivers() {
@@ -92,3 +98,4 @@ int main() {
     }
     return 0;
 }
+
