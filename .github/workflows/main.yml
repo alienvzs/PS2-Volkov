@@ -1,12 +1,18 @@
-name: Build
+name: PS2_Build
 on: [push]
 jobs:
-  build:
+  build-volkov:
     runs-on: ubuntu-latest
     container: ps2dev/ps2sdk:latest
     steps:
-      - uses: actions/checkout@v3
-      - run: make
-      - uses: actions/upload-artifact@v3
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          apk add --no-cache git make gcc
+      - name: Compile ELF
+        run: make
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: volkov-commander-ps2
           path: volkov.elf
