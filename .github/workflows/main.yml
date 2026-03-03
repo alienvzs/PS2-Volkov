@@ -6,14 +6,20 @@ jobs:
     container: ps2dev/ps2sdk:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install gsKit
+      - name: Install gsKit and Build
         run: |
-          apk add --no-cache git make gcc
+          apk add --no-cache git make gcc build-base
+          # A pontos gsKit letöltése
           git clone https://github.com
-          cd gsKit && ./build.sh && ./build.sh install
-      - name: Compile ELF
+          cd gsKit
+          # Előkészítés és fordítás (ez eltarthat egy kis ideig)
+          ./build.sh
+          ./build.sh install
+          cd ..
+      - name: Compile Volkov ELF
         run: |
-          export GS_KIT=$PS2SDK/gsKit
+          # Jelezzük a Makefile-nak, hol van a frissen telepített gsKit
+          export GSKIT=$PS2SDK/gsKit
           make
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
