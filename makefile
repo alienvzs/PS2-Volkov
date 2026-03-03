@@ -1,6 +1,6 @@
 EE_BIN = volkov.elf
 EE_OBJS = volkov.o
-EE_LIBS = -lfileXio -lpad -lgskit -ldmakit -lgskit_font
+EE_LIBS = -lgskit -ldmakit -lpad -ldebug
 
 all: $(EE_BIN)
 
@@ -9,3 +9,4 @@ clean:
 
 include $(PS2SDK)/samples/Makefile.pref
 include $(PS2SDK)/samples/Makefile.eeglobal
+
