@@ -1,0 +1,22 @@
+name: PS2_Build
+on: [push]
+jobs:
+  build-volkov:
+    runs-on: ubuntu-latest
+    container: ps2dev/ps2sdk:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gsKit
+        run: |
+          apk add --no-cache git make gcc
+          git clone https://github.com
+          cd gsKit && ./build.sh && ./build.sh install
+      - name: Compile ELF
+        run: |
+          export GS_KIT=$PS2SDK/gsKit
+          make
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: volkov-commander-ps2
+          path: volkov.elf
